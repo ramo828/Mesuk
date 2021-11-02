@@ -1,0 +1,58 @@
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'application'
+
+
+
+mainClassName = 'Main.login'
+
+
+repositories {
+    mavenCentral()
+    
+    flatDir {
+        dirs 'libs'
+        dirs 'res'
+    }
+}
+
+configurations {
+    // configuration that holds jars to include in the jar
+    extraLibs
+}
+
+dependencies {
+      testImplementation     'junit:junit:4.13'
+      extraLibs fileTree('libs') { include '*.jar' }
+      implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.26'
+      implementation 'commons-codec:commons-codec:1.15'
+
+}
+    
+ 
+run{
+    standardInput = System.in
+}
+
+jar{
+     baseName = 'login'
+     version = '0.0.5'
+    manifest {
+        attributes 'Manifest-Version': '0.0.5'
+        attributes 'Implementation-Title': 'Mesuk'
+        attributes'Main-Class': 'Main.login'
+    }
+    archiveName 'Mesuk.jar'
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs "res"
+        }
+    }
+}
+
+
+
+                                  
